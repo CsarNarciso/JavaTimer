@@ -22,7 +22,7 @@ public class Timer{
 		
 		double totalElapsedSeconds = 0;
 		
-		String soundEffectPath = "soundEffect.mp3";
+		String soundEffectPath = "soundEffect.wav";
 		
 		while(true){
 			
@@ -43,6 +43,7 @@ public class Timer{
 				AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
 				Clip clip = AudioSystem.getClip();
 				clip.open(audioStream);
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
 				
 				while(true){
 					clip.start();
