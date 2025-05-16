@@ -22,7 +22,7 @@ public class Timer{
 		
 		double totalElapsedSeconds = 0;
 		
-		String soundEffectPath = "soundEffect.mp4";
+		String soundEffectPath = "soundEffect.mp3";
 		
 		while(true){
 			
