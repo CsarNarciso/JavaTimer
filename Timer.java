@@ -1,9 +1,13 @@
 import java.util.concurrent.TimeUnit;
 import java.util.Scanner;
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Timer{
 	
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, UnsupportedAudioFileException, LineUnavailableException, IOException, FileNotFoundException {
 		
 		Scanner scanner = new Scanner(System.in);
 		
@@ -18,6 +22,8 @@ public class Timer{
 		
 		double totalElapsedSeconds = 0;
 		
+		String soundEffectPath = "soundEffect.mp4";
+		
 		while(true){
 			
 			long currentTimeInNanos = System.nanoTime();
@@ -29,8 +35,18 @@ public class Timer{
 			System.out.println((int)totalElapsedSeconds);
 			
 			if(totalElapsedSeconds >= endAt){					
-				System.out.println("Finished!");
-				break;
+				
+				System.out.println("Finished! CTR-C to exit program.");
+				
+				//Play and repeat sound effect
+				File file = new File(soundEffectPath);
+				AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+				Clip clip = AudioSystem.getClip();
+				clip.open(audioStream);
+				
+				while(true){
+					clip.start();
+				}
 			}
 			
 			lastUpdateTimeInNanos = System.nanoTime();
