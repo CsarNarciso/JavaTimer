@@ -9,41 +9,44 @@ public class Timer{
 	
 	public static void main(String[] args) throws InterruptedException, UnsupportedAudioFileException, LineUnavailableException, IOException, FileNotFoundException {
 		
+		String soundEffectPath = "soundEffect.wav";
 		Scanner scanner = new Scanner(System.in);
+		
+		long lastUpdateTimeInNanos = System.nanoTime();
+		double totalElapsedSeconds = 0;
 		
 		//Ask user for desired timer time
 		System.out.print("Set timer at (in minutes): ");
 		int endAt = scanner.nextInt();
+		endAt = endAt * 60; //And pass to seconds for calcs
 		
-		//And pass to seconds for calcs
-		endAt = endAt * 60;
-		
-		long lastUpdateTimeInNanos = System.nanoTime();
-		
-		double totalElapsedSeconds = 0;
-		
-		String soundEffectPath = "soundEffect.wav";
-		
+		//Init timer
 		while(true){
-			
+		
 			long currentTimeInNanos = System.nanoTime();
 			
 			double loopLapElapsedSeconds = (double) (currentTimeInNanos - lastUpdateTimeInNanos) / 1_000_000_000; //nano to second
 			totalElapsedSeconds += loopLapElapsedSeconds; 
 			
 			//Display elapsed time
-			System.out.println((int)totalElapsedSeconds);
+			int elapsedSeconds = (int) totalElapsedSeconds;
+			int elapsedMinutes = elapsedSeconds / 60;
+			int elapsedHours = elapsedMinutes / 60;
+			System.out.println(elapsedHours + "h | " + elapsedMinutes + "m | " + elapsedSeconds + "s");
 			
 			if(totalElapsedSeconds >= endAt){					
 				
-				System.out.println("Finished! CTR-C to exit program.");
+				System.out.println("Finished! CTR-C to exit program, or start a new timer!");
+				
+				//Reset values for next timer
+				totalElapsedSeconds = 0;
 				
 				//Play and repeat sound effect
 				File file = new File(soundEffectPath);
 				AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
 				Clip clip = AudioSystem.getClip();
 				clip.open(audioStream);
-                clip.loop(Clip.LOOP_CONTINUOUSLY);
+				clip.loop(Clip.LOOP_CONTINUOUSLY);
 				
 				while(true){
 					clip.start();
@@ -51,7 +54,6 @@ public class Timer{
 			}
 			
 			lastUpdateTimeInNanos = System.nanoTime();
-			
 			Thread.sleep(500);
 		}
 	}
