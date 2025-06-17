@@ -12,13 +12,13 @@ public class Timer{
 		String soundEffectPath = "soundEffect.wav";
 		Scanner scanner = new Scanner(System.in);
 		
-		long lastUpdateTimeInNanos = System.nanoTime();
-		double totalElapsedSeconds = 0;
-		
 		//Ask user for desired timer time
 		System.out.print("Set timer at (in minutes): ");
 		int endAt = scanner.nextInt();
 		endAt = endAt * 60; //And pass to seconds for calcs
+		
+		long lastUpdateTimeInNanos = System.nanoTime();
+		double totalElapsedSeconds = 0;
 		
 		//Init timer
 		while(true){
@@ -29,9 +29,9 @@ public class Timer{
 			totalElapsedSeconds += loopLapElapsedSeconds; 
 			
 			//Display elapsed time
-			int elapsedSeconds = (int) totalElapsedSeconds;
-			int elapsedMinutes = elapsedSeconds / 60;
-			int elapsedHours = elapsedMinutes / 60;
+			int elapsedHours = (int) totalElapsedSeconds / 60 / 60;
+			int elapsedMinutes = (int) totalElapsedSeconds / 60 - elapsedHours * 60;
+			int elapsedSeconds = (int) totalElapsedSeconds - elapsedMinutes * 60;
 			System.out.println(elapsedHours + "h | " + elapsedMinutes + "m | " + elapsedSeconds + "s");
 			
 			if(totalElapsedSeconds >= endAt){					
