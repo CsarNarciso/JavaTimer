@@ -1,0 +1,1 @@
+mvn exec:java -Dexec.mainClass="com.cesar.JavaTimer.App"

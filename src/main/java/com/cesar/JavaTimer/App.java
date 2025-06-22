@@ -1,3 +1,5 @@
+package com.cesar.JavaTimer;
+
 import java.util.concurrent.TimeUnit;
 import java.util.Scanner;
 import javax.sound.sampled.*;
@@ -5,11 +7,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class Timer{
+public class App{
 	
 	public static void main(String[] args) throws InterruptedException, UnsupportedAudioFileException, LineUnavailableException, IOException, FileNotFoundException {
 		
-		String soundEffectPath = "soundEffect.wav";
+		String soundEffectPath = "./resources/sounds/soundEffect.wav";
 		Scanner scanner = new Scanner(System.in);
 		
 		//Ask user for desired timer time
