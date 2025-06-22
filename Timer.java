@@ -29,12 +29,12 @@ public class Timer{
 			totalElapsedSeconds += loopLapElapsedSeconds; 
 			
 			//Display elapsed time
-			int elapsedHours = (int) totalElapsedSeconds / 60 / 60;
-			int elapsedMinutes = (int) totalElapsedSeconds / 60 - elapsedHours * 60;
-			int elapsedSeconds = (int) totalElapsedSeconds - elapsedMinutes * 60;
-			System.out.println(elapsedHours + "h | " + elapsedMinutes + "m | " + elapsedSeconds + "s");
+			int remainingHours = (int) ((endAt - totalElapsedSeconds) / 60 / 60);
+			int remainingMinutes = (int) (((endAt - totalElapsedSeconds) - remainingHours * 60 * 60) / 60);
+			int remainingSeconds = (int) ((endAt - totalElapsedSeconds) - (remainingHours * 60 * 60) - remainingMinutes * 60);
+			System.out.println(remainingHours + "h | " + remainingMinutes + "m | " + remainingSeconds + "s");
 			
-			if(totalElapsedSeconds >= endAt){					
+			if(endAt - totalElapsedSeconds <= 0){					
 				
 				System.out.println("Finished! CTR-C to exit program, or start a new timer!");
 				
